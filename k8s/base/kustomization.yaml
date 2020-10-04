@@ -1,0 +1,58 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# todo don`t commit
+images:
+  - name: c3smonkey/template
+    newName: docker-registry.default.svc:5000/dev/hazelcast-demo
+    newTag: latest
+
+## TODO
+namePrefix: hazelcast-demo
+## TODO appGroup and app
+commonLabels:
+  app: hazelcast-demo
+  appGroup: demo
+
+# Resources
+resources:
+  - deployment.yaml
+  - service.yaml
+  - route
+
+# ConfigMap
+patchesStrategicMerge:
+  - configmap.yaml
+
+
+# otherwise the name wil be namePrefix-app-nameSuffix
+patches:
+  - patch: |-
+      - op: replace
+        path: /metadata/name
+        value: service
+    target:
+      kind: Deployment
+      name: .*
+  - patch: |-
+      - op: replace
+        path: /metadata/name
+        value: service
+    target:
+      kind: Service
+      name: .*
+  - target:
+      kind: PrometheusRule
+      name: .*
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: service
+  - target:
+      kind: Route
+      name: .*
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: service
+

@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  template:
+    spec:
+      containers:
+        # TODO
+        - name: hazelcast-demo
+          resources:
+            limits:
+              cpu: 750m
+              memory: 10240Mi
+            requests:
+              cpu: 50m
+              memory: 200Mi
+
+

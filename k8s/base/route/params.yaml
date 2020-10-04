@@ -1,0 +1,9 @@
+varReference:
+  # Route
+  - path: spec/host
+    kind: Route
+
+  - path: status/ingress/host
+    kind: Route
+
+

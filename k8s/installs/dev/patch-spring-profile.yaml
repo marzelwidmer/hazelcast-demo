@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  template:
+    spec:
+      containers:
+        # TODO
+        - name: hazelcast-demo
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: development
+

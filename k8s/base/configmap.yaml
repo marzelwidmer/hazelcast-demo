@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  template:
+    spec:
+      containers:
+        # TODO FIXME
+        - name: hazelcast-demo
+          volumeMounts:
+            - mountPath: /config
+              name: app-config
+      volumes:
+        - name: app-config
+          configMap:
+            name: app-config
+
+
+
+
+
+
