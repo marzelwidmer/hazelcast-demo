@@ -1,5 +1,0 @@
-hazelcast:
-  network:
-    join:
-      kubernetes:
-        enabled: false

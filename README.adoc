@@ -1,0 +1,63 @@
+= hazelcast-demo
+
+Spring Boot Hazelcast
+
+image:../master/hazelcast-config.png[hazelcast-config]
+
+== Run Hazelcast Management Center
+
+[source,bash]
+----
+docker run --name hazelcast-mngt-center -d -p 8080:8080 hazelcast/management-center:3.11.3 
+----
+
+grab the url from the _hazelcast-mngt-center_
+```bash
+docker logs -f hazelcast-mngt-center
+```
+
+[source,bash]
+----
+[main] INFO  c.h.w.s.s.impl.DisableLoginStrategy - Login will be disabled for 5 seconds after 3 failed login attempts. For every 3 consecutive failed login attempts, disable period will be multiplied by 10.
+Hazelcast Management Center successfully started at http://localhost:8080/hazelcast-mancenter
+----
+
+== Create Hazelcast Management Center User
+
+image:../master/hazelcast-mngt-center-create-user.png[hazelcast-mngt-center-create-user]
+
+== Spring Cloud CLI
+Start Spring Cloud Eureka with Spring Cloud CLI.
+
+```bash
+ spring cloud eureka
+```
+
+== Run Spring Boot Applications
+
+There are two Spring profiles so you can run the application twice without any port conflicts and random port problems
+Spring profile _srv1_ with port _8081_ and _srv2_ with port _8082_ 
+
+```bash
+
+Members {size:2, ver:2} [
+	Member [192.168.1.103]:5701 - b7a4b001-90b6-44dd-9b1a-eca1603096f2
+	Member [192.168.1.103]:5702 - 97b69ae5-7155-4b4c-8d20-b10cb3693b89 this
+]
+
+```
+You can hit the API like (this will generate a new UUID) for _foo_
+
+[source,bash]
+----
+http :8081/api/foo
+----
+
+now you can hit the 2nd API (server instance) and we expect the same result
+```bash
+http :8082/api/foo
+```
+
+== Dashboard Hazelcast Management Center
+
+image:../master/hazelcast-mngt-center-dashboard.png[hazelcast-mngt-center-dashboard]

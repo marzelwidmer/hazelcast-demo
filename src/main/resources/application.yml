@@ -1,0 +1,25 @@
+hazelcast:
+  instance: cache-1
+  group:
+    name: 'appdev'
+  management-center:
+    enabled: true
+    url: 'http://management-center-appdev.apps.c3smonkey.ch/hazelcast-mancenter'
+  network:
+    port:
+      port: 5701
+    join:
+      multicast:
+        enabled: false
+
+---
+spring:
+  profiles: srv1
+
+server.port: 8081
+
+---
+spring:
+  profiles: srv2
+
+server.port: 8082
